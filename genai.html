@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro to Generative AI - Alex Scheinker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f8fa;
+        }
+        
+        .nav-bar {
+            background: white;
+            border-bottom: 1px solid #d0d7de;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-content a {
+            padding: 16px 12px;
+            color: #24292f;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        .nav-content a:hover {
+            border-bottom-color: #d0d7de;
+        }
+        
+        .nav-content a.active {
+            border-bottom-color: #fd8c73;
+            font-weight: 600;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .content {
+            background: white;
+            padding: 60px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            line-height: 1.6;
+        }
+        
+        .content h1 {
+            margin-top: 0;
+            font-size: 2.5em;
+            border-bottom: 2px solid #d0d7de;
+            padding-bottom: 10px;
+        }
+        
+        .content h2 {
+            margin-top: 2em;
+            font-size: 1.8em;
+            color: #24292f;
+        }
+        
+        .content h3 {
+            margin-top: 1.5em;
+            font-size: 1.3em;
+            color: #57606a;
+        }
+        
+        .content p {
+            margin: 1em 0;
+        }
+        
+        .content code {
+            background: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .content pre {
+            background: #f6f8fa;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-link">Bio</a>
+            <a href="research.html" class="nav-link">Research</a>
+            <a href="genai.html" class="nav-link active">Intro to Generative AI</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="content">
+            <h1>Introduction to Generative AI</h1>
+            
+            <p>This is a comprehensive introduction to generative artificial intelligence, covering the fundamental concepts, mathematical foundations, and practical applications focused on electrodynamics, charged particle beams, and 3D dynamic imaging.</p>
+            
+            <h2>What is Generative AI?</h2>
+            
+            <p>Generative AI refers to artificial intelligence systems that can create new content, whether it's text, images, audio, or other forms of data. Unlike discriminative models that classify or predict based on existing data, generative models learn the underlying distribution of data and can sample from it to create novel outputs.</p>
+            
+            <p>At its core, generative AI is about learning probability distributions. Generative models such as VAEs and Diffusion models have shown that If we can model distributions of natural images, we can conditionally sample from those distribution to create new images. Large language models have shown that if we can model the distribution of human language, we can generate coherent text.</p>
+            
+            <h2>Types of Generative Models</h2>
+            
+            <h3>Autoregressive Models</h3>
+            
+            <p>Autoregressive models generate data sequentially, predicting each element based on previous elements. Language models like GPT are prime examples, generating text one token at a time based on the preceding context.</p>
+            
+            <h3>Variational Autoencoders (VAEs)</h3>
+            
+            <p>VAEs learn a compressed latent representation of data and can generate new samples by sampling from the latent space. They combine ideas from deep learning with variational inference to create a principled framework for generative modeling.</p>
+            
+            <h3>Generative Adversarial Networks (GANs)</h3>
+            
+            <p>GANs consist of two neural networks—a generator and a discriminator—that compete against each other. The generator creates samples while the discriminator tries to distinguish real data from generated data. This adversarial process leads to highly realistic generations.</p>
+            
+            <h3>Diffusion Models</h3>
+            
+            <p>Diffusion models have emerged as one of the most powerful approaches for image generation. They work by gradually adding noise to data and then learning to reverse this process, allowing them to generate high-quality samples.</p>
+            
+            <h2>Mathematical Foundations</h2>
+            
+            <h3>Probability and Distributions</h3>
+            
+            <p>At the heart of generative modeling is probability theory. We aim to learn a probability distribution p(x) that represents our data. Once learned, we can sample from this distribution to generate new data points.</p>
+            
+            <h3>Maximum Likelihood Estimation</h3>
+            
+            <p>Many generative models are trained using maximum likelihood estimation, where we try to maximize the probability that our model assigns to the observed data.</p>
+            
+            <h3>Latent Variable Models</h3>
+            
+            <p>Many powerful generative models use latent variables—unobserved variables that help explain the structure in the data. VAEs and many other models fall into this category.</p>
+            
+            <h2>Large Language Models</h2>
+            
+            <p>Large language models (LLMs) represent a particularly successful application of generative AI. Models like GPT-4, Claude, and others can generate human-like text across a vast range of topics and styles.</p>
+            
+            <h3>Transformer Architecture</h3>
+            
+            <p>The transformer architecture, introduced in 2017, revolutionized natural language processing. Its attention mechanism allows the model to weigh the importance of different parts of the input when generating each output token.</p>
+            
+            <h3>Training at Scale</h3>
+            
+            <p>Modern LLMs are trained on massive amounts of text data—often hundreds of billions to trillions of tokens. This scale, combined with billions of parameters, allows them to capture complex patterns in language.</p>
+            
+            <h2>Image Generation</h2>
+            
+            <h3>Diffusion Models for Images</h3>
+            
+            <p>Models like DALL-E, Midjourney, and Stable Diffusion use diffusion processes to generate images from text descriptions. These models have achieved remarkable quality and control over image generation.</p>
+            
+            <h3>Text-to-Image Generation</h3>
+            
+            <p>The ability to generate images from text descriptions represents a significant milestone. These models learn joint representations of text and images, allowing them to translate between modalities.</p>
+            
+            <h2>Applications in Science and Engineering</h2>
+            
+            <h3>Accelerator Physics</h3>
+            
+            <p>In particle accelerators, generative models can be used for virtual diagnostics, predicting beam properties that are difficult or impossible to measure directly. They can also help optimize accelerator operations and design new configurations.</p>
+            
+            <h3>Molecular Design</h3>
+            
+            <p>Generative models are being used to design new molecules and materials with desired properties, significantly accelerating drug discovery and materials science.</p>
+            
+            <h3>Scientific Simulation</h3>
+            
+            <p>Generative models can learn to approximate expensive scientific simulations, providing fast surrogates that enable rapid exploration of parameter spaces.</p>
+            
+            <h2>Control Theory Perspective</h2>
+            
+            <h3>Adaptive Control</h3>
+            
+            <p>From a control theory perspective, generative models can be viewed as dynamical systems that we want to control. Adaptive control techniques can help these models respond to changing environments and requirements.</p>
+            
+            <h3>Stability and Robustness</h3>
+            
+            <p>Ensuring that generative models behave reliably and robustly is crucial, especially in safety-critical applications. Control theory provides tools for analyzing and guaranteeing stability properties.</p>
+            
+            
+        </div>
+    </div>
+</body>
+</html>
