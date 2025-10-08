@@ -138,7 +138,10 @@
             <img src="6D6D_Overview.png" alt="Another Example">
             
             <p>A high level overview of a conditionally guided adaptive diffusion process for tracking the time-varying 6D phase space density of a charged particle beam in the HiRES compact electron accelerator at Lawrence Berkeley National Laboratory. A VAE is first used to compress a combination of initial beam condition image-based measurements together with accelerator parameters into a low-dimensional latent embedding $\mathbf{z}\in\mathbb{R}^3$, from which the generative half of the VAE then creates a 6D tensor of size $32^6$ which represents the beam's 6D phase space density. Individual $32\times 32$ pixel 2D projections are then created in a physically consistent way by projecting from this single 6D tensor. The resolution of these images is then increased to $256\times 256$ so that fine beam phase space density perturbations can be seen by a super-resolution diffusion model. The entire process is made to be adaptive, to track time-varying beams based only on limited measurements, by adaptively tuning the latent space embedding using adaptive feedback control theory techniques.</p>
-            
+
+            <img src="6D6D_cDiff.png" alt="Another Example">
+
+            <p>A detailed view of the super resolution diffusion process.</p>
             <div class="reference">
                 <strong>Reference:</strong> A. Scheinker, "Physics-constrained superresolution diffusion for six-dimensional phase space diagnostics," Physical Review Research (2025). 
                 <a href="https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023091" target="_blank">Link to paper</a>
