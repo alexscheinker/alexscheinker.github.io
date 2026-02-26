@@ -131,6 +131,17 @@
             <h1>Some Recent Research Highlights</h1>
             
             <p>This is a summary of some recent research on the intersection of control theory and generative AI.</p>
+
+            <h2>Adaptive Multi-Modal Diffusion for Tracking Time-Varying Beams</h2>
+            
+            <img src="cDVAE_Overview.png" alt="Latent Diffusion Example">
+            
+            <p>An overview of a multi-modal adaptive diffusion setup is shown at two different levels of detail (top and bottom). A: Image-based charged particle beam measurements are envoded into a low-dimensional latent vector representation $\mathbf{z}$ by a VAE. B: Scalar measurements such as accelerator magnet settings, are collected as a vector $\mathbf{p}$. C: The measurement vectors are concatenated together with a physics-informed vector $\mathbf{d}$ which controls which 2D projection of the beam's 6D phase space density is generated, all three vectors are concatenated as a single conditional guidance vector $\mathbf{c}=[\mathbf{z},\mathbf{p},\mathbf{d}]$. D: A generated 2D projection is compared to its measurement (only certain 2D measurements are available), and the condtional vector $\mathbf{c}$ is then adaptively tuned to minimize prediction error. This allows all other projections to be generated and tracked as the beam changes with time.</p>
+            
+            <div class="reference">
+                <strong>Reference:</strong> A. Scheinker, "cDVAE: VAE-guided diffusion for particle accelerator beam 6D phase space projection diagnostics." Scientific Reports 14.1 (2024): 29303. 
+                <a href="https://www.nature.com/articles/s41598-024-80751-1" target="_blank">Link to paper</a>
+            </div>
             
             <h2>Adaptive Latent Diffusion for Extreme Inverse Problems</h2>
             
