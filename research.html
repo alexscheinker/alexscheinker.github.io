@@ -156,6 +156,21 @@
                 <strong>Reference:</strong> A. Scheinker, "Physics-constrained superresolution diffusion for six-dimensional phase space diagnostics," Physical Review Research (2025). 
                 <a href="https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.7.023091" target="_blank">Link to paper</a>
             </div>
+
+            <h2>Physics Constrained Neural Network (PCNN) for Electrodynamics</h2>
+            
+            <img src="PCNN_E&M.png" alt="Another Example">
+            
+            <p>A 3D CNN-based neural operator a neural operator maps fields of current density or charge density of charged particle beams to their associated electric and magnetic fields, while respecting hard physics constraints of Maxwell’s equations. Maxwell's equations are built in as hard constraints by generative potentials and then creating electromagnetic fields from those potentials as shown in the figure below. For example, the divergencelss condition for the generated magnetic field $\mathbf{B}(x,y,z,t)$ is strictly enforced by mapping the current density field $\mathbf{J}(x,y,z,t)$ to the vector potential $\mathbf{A}(x,y,z,t)$ from which the magentic field is created via $\mathbf{B}=\nabla \times \mathbf{A}$, this guarantees that $\nabla \cdot B = \nalba \cdot (\nabla \times \mathbf{A}) = \mathbf{0}$.</p>
+
+            <img src="6D6D_cDiff.png" alt="Another Example">
+
+            <p>A high level overview of the PCNN setup for electrodynamics.</p>
+            <div class="reference">
+                <strong>Reference:</strong> A. Scheinker and R. Pokharel, "Physics-constrained 3D convolutional neural networks for electrodynamics," APL Machine Learning (2023). 
+                <a href="https://doi.org/10.1063/5.0132433" target="_blank">Link to paper</a>
+            </div>
+            
         </div>
     </div>
 </body>
