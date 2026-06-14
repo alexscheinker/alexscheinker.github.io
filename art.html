@@ -3,17 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art</title>
-    <!-- MathJax Configuration -->
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            }
-        };
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <title>Art - Alex Scheinker</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -76,18 +66,6 @@
             padding-bottom: 10px;
         }
         
-        .content h2 {
-            margin-top: 2em;
-            font-size: 1.8em;
-            color: #24292f;
-        }
-        
-        .content h3 {
-            margin-top: 1.5em;
-            font-size: 1.3em;
-            color: #57606a;
-        }
-        
         .content p {
             margin: 1em 0;
         }
@@ -101,19 +79,10 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
-        .reference {
+        .caption {
             margin-top: 10px;
             font-size: 0.95em;
             color: #57606a;
-        }
-        
-        .reference a {
-            color: #0969da;
-            text-decoration: none;
-        }
-        
-        .reference a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -121,17 +90,22 @@
     <div class="nav-bar">
         <div class="nav-content">
             <a href="index.html" class="nav-link">Bio</a>
-            <a href="research.html" class="nav-link active">Research</a>
+            <a href="research.html" class="nav-link">Research</a>
             <a href="genai.html" class="nav-link">Intro to Generative AI</a>
-            <a href="art.html" class="nav-link">Art</a>
+            <a href="art.html" class="nav-link active">Art</a>
         </div>
     </div>
 
-    <main class="container">
+    <div class="container">
         <div class="content">
-            <img src="MNISTbutterfly.png" alt="My 3-year old daughter wants us to save the butterflies. This is the landscape of an EBM trained on MNIST as viewed in the latent space of a 2D VAE.">
+            <h1>Art</h1>
+
+            <p>Where machine learning and aesthetics overlap. The piece below started as a research artifact and turned into something my family enjoys looking at.</p>
+
+            <img src="MNISTbutterfly.png" alt="The landscape of an EBM trained on MNIST as viewed in the latent space of a 2D VAE.">
+
+            <p class="caption">My 3-year-old daughter wants us to save the butterflies. This is the landscape of an energy-based model (EBM) trained on MNIST, as viewed in the latent space of a 2D variational autoencoder (VAE).</p>
         </div>
-    </main>
-    
+    </div>
 </body>
 </html>
