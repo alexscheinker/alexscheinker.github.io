@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round-Trip Consistency - Alex Scheinker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f8fa;
+        }
+
+        .nav-bar {
+            background: white;
+            border-bottom: 1px solid #d0d7de;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .nav-content a {
+            padding: 16px 12px;
+            color: #24292f;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .nav-content a:hover {
+            border-bottom-color: #d0d7de;
+        }
+
+        .nav-content a.active {
+            border-bottom-color: #fd8c73;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .content {
+            background: white;
+            padding: 60px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            line-height: 1.6;
+        }
+
+        .content h1 {
+            margin-top: 0;
+            font-size: 2.5em;
+            border-bottom: 2px solid #d0d7de;
+            padding-bottom: 10px;
+        }
+
+        .content h2 {
+            margin-top: 2.5em;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 8px;
+        }
+
+        .content p {
+            margin: 1em 0;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .caption {
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #57606a;
+        }
+
+        /* Reference card */
+        .citation-card {
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            background: #f6f8fa;
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .citation-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .citation-title a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .citation-title a:hover {
+            text-decoration: underline;
+        }
+
+        .citation-meta {
+            color: #57606a;
+            margin-bottom: 16px;
+        }
+
+        .paper-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .paper-links a {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .btn-arxiv {
+            background: #b31b1b;
+            color: #ffffff;
+        }
+
+        .btn-arxiv:hover {
+            background: #8f1515;
+        }
+
+        .btn-code {
+            background: #ffffff;
+            color: #57606a;
+            border: 1px solid #d0d7de;
+        }
+
+        .btn-code:hover {
+            background: #f3f4f6;
+        }
+
+        .bibtex-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .bibtex-label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #57606a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn {
+            font-size: 0.8em;
+            padding: 4px 10px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #24292f;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .bibtex {
+            background: #ffffff;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 0;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.82em;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-link">Bio</a>
+            <a href="research.html" class="nav-link">Research</a>
+            <a href="roundtrip.html" class="nav-link active">Round-Trip Consistency</a>
+            <a href="genai.html" class="nav-link">Intro to Generative AI</a>
+            <a href="art.html" class="nav-link">Art</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>Round-Trip Consistency</h1>
+            <p>Bidirectional diffusion models can predict their own rollout errors. Results and figures from the paper referenced below.</p>
+
+            <!-- Figure 1: upload an image named roundtrip_fig1.png, or change the src to match your file -->
+            <img src="roundtrip_fig1.png" alt="Figure 1">
+            <p class="caption">Figure 1 caption placeholder &mdash; replace with a description of the image.</p>
+
+            <!-- Figure 2 -->
+            <img src="roundtrip_fig2.png" alt="Figure 2">
+            <p class="caption">Figure 2 caption placeholder &mdash; replace with a description of the image.</p>
+
+            <!-- Figure 3 -->
+            <img src="roundtrip_fig3.png" alt="Figure 3">
+            <p class="caption">Figure 3 caption placeholder &mdash; replace with a description of the image.</p>
+
+            <h2>Reference</h2>
+            <div class="citation-card">
+                <div class="citation-title">
+                    <a href="https://arxiv.org/abs/2608.00675" target="_blank" rel="noopener">Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors</a>
+                </div>
+                <div class="citation-meta">Alexander Scheinker &middot; 2026 &middot; arXiv:2608.00675 [stat.ML]</div>
+                <div class="paper-links">
+                    <a href="https://arxiv.org/abs/2608.00675" class="btn-arxiv" target="_blank" rel="noopener">arXiv</a>
+                    <!-- TODO: when the code is on GitHub, replace href="#" with the repo URL and remove "(coming soon)" -->
+                    <a href="#" class="btn-code" title="Link coming soon">Code (coming soon)</a>
+                </div>
+                <div class="bibtex-header">
+                    <span class="bibtex-label">BibTeX</span>
+                    <button class="copy-btn" onclick="copyBibtex(this)">Copy</button>
+                </div>
+                <pre class="bibtex" id="bibtex-text">@misc{scheinker2026roundtripconsistencybidirectionaldiffusion,
+      title={Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors}, 
+      author={Alexander Scheinker},
+      year={2026},
+      eprint={2608.00675},
+      archivePrefix={arXiv},
+      primaryClass={stat.ML},
+      url={https://arxiv.org/abs/2608.00675}, 
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyBibtex(btn) {
+            var text = document.getElementById('bibtex-text').innerText;
+            navigator.clipboard.writeText(text).then(function () {
+                btn.textContent = 'Copied!';
+                setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
