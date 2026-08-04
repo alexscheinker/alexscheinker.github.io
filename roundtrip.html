@@ -214,9 +214,8 @@
             <h1>Round-Trip Consistency</h1>
             <p>Bidirectional diffusion models can predict their own rollout errors. Results and figures from the paper referenced below.</p>
 
-            <!-- Figure 1: upload an image named roundtrip_fig1.png, or change the src to match your file -->
-            <img src="roundtrip_fig1.png" alt="Figure 1">
-            <p class="caption">Figure 1 caption placeholder &mdash; replace with a description of the image.</p>
+            <img src="Consistency_Loss_V12.png" alt="Figure 1">
+            <p class="caption">This image gives a high level overview of the overall setup. High dimensional images are first encoded into much lower dimensional representations by a VAE. A bidirectional latent diffusion model is then trained to autoregressively rollout forward of backward in time based on a directional flag $c_d=\pm1$. After rolling out $i$ steps, if $c_d$ is reversed, the prediction should return to where it started. The consistency error, the difference between the start and return, is a self-supervised test-time metric for model prediction error without relying on access to the unknown ground truth.</p>
 
             <!-- Figure 2 -->
             <img src="roundtrip_fig2.png" alt="Figure 2">
