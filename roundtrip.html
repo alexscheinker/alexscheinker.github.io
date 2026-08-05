@@ -269,6 +269,9 @@ rollouts predicts its magnitude to within $1.14\times$ ($68\%$) and $1.29\times$
 
             <img src="ForwardBackRollRecon.png" alt="Figure 5">
             <p class="caption">"Demonstration of the model autoregressively rolling out forward or backward in time, where it acts as an inverse solver, for MHD data.</p>
+
+            <img src="Spearman_ForwardBack_z_C_val_iDepth.png" alt="Figure 6">
+            <p class="caption">This figure plots the MSE of autoregressively rolled out latent images for MHD data against consistency error $\mathcal{C}_i$, colored by rollout depth $i$. On the left are forward then back rollout results and on the right are inverse problem solving results in which we start at the end, $z[T]$ and roll backwards towards $z[0]$, reversing at various depths $i$. In both cases there is a strong correlation between $\mathcal{C}_i$ and MSE of predicted $z_i$.</p>
             
             <h2>Reference</h2>
             <div class="citation-card">
