@@ -3,7 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Round-Trip Consistency - Alex Scheinker</title>
+    <title>Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors | Alexander Scheinker</title>
+    <meta name="description" content="Roll a bidirectional diffusion model forward, then back: the round-trip miss predicts its rollout error at test time, with no ground truth. Paper and code.">
+    <meta name="author" content="Alexander Scheinker">
+    <link rel="canonical" href="https://alexscheinker.github.io/roundtrip.html">
+
+    <!-- Link previews (Slack, LinkedIn, X, Bluesky, Messages) -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Alexander Scheinker">
+    <meta property="og:title" content="Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors">
+    <meta property="og:description" content="Roll a bidirectional diffusion model forward, then back: the round-trip miss predicts its rollout error at test time, with no ground truth. Paper and code.">
+    <meta property="og:url" content="https://alexscheinker.github.io/roundtrip.html">
+    <meta property="og:image" content="https://alexscheinker.github.io/roundtrip_card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Diagram: one latent diffusion model steps forward or backward in time; rolling out and back gives the round-trip consistency error.">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Structured data: tells search engines this page is about the paper and who wrote it -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": "Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors",
+        "name": "Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors",
+        "description": "Roll a bidirectional diffusion model forward, then back: the round-trip miss predicts its rollout error at test time, with no ground truth. Paper and code.",
+        "datePublished": "2026-08-01",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "url": "https://alexscheinker.github.io/roundtrip.html",
+        "mainEntityOfPage": "https://alexscheinker.github.io/roundtrip.html",
+        "sameAs": [
+            "https://arxiv.org/abs/2608.00675",
+            "https://huggingface.co/papers/2608.00675"
+        ],
+        "identifier": {
+            "@type": "PropertyValue",
+            "propertyID": "arXiv",
+            "value": "2608.00675"
+        },
+        "image": "https://alexscheinker.github.io/roundtrip_card.jpg",
+        "keywords": [
+            "diffusion models",
+            "uncertainty quantification",
+            "autoregressive rollout",
+            "surrogate models",
+            "dynamical systems",
+            "cycle consistency",
+            "test-time error estimation",
+            "scientific machine learning"
+        ],
+        "author": {
+            "@type": "Person",
+            "name": "Alexander Scheinker",
+            "url": "https://alexscheinker.github.io/",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Los Alamos National Laboratory"
+            },
+            "sameAs": [
+                "https://scholar.google.com/citations?user=rKlEo6EAAAAJ",
+                "https://github.com/alexscheinker",
+                "https://huggingface.co/AScheinker"
+            ]
+        }
+    }
+    </script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -69,6 +134,17 @@
             color: #0969da;
             font-weight: 600;
             font-size: 1.2em;
+        }
+        .byline {
+            color: #57606a;
+            margin: 0.2em 0 1em;
+        }
+        .byline a {
+            color: #0969da;
+            text-decoration: none;
+        }
+        .byline a:hover {
+            text-decoration: underline;
         }
 
         .container {
@@ -248,32 +324,44 @@
         <div class="content">
             <h1>Round-Trip Consistency</h1>
             <p class="tagline">Bidirectional diffusion models can predict their own rollout errors.</p>
+            <p class="byline"><a href="index.html">Alexander Scheinker</a> &middot; Los Alamos National Laboratory &middot; arXiv:2608.00675 (2026)</p>
+            <div class="paper-links">
+                <a href="https://arxiv.org/abs/2608.00675" class="btn-arxiv" target="_blank" rel="noopener">Paper (arXiv)</a>
+                <a href="https://arxiv.org/pdf/2608.00675" class="btn-code" target="_blank" rel="noopener">PDF</a>
+                <a href="https://github.com/alexscheinker/round-trip-consistency" class="btn-code" target="_blank" rel="noopener">Code</a>
+                <a href="https://huggingface.co/papers/2608.00675" class="btn-code" target="_blank" rel="noopener">Hugging Face</a>
+                <a href="#reference" class="btn-code">BibTeX</a>
+            </div>
+            <!-- Added: a plain-language summary that uses the terms people search for
+                 (uncertainty, surrogate, video prediction). Edit or delete freely. -->
+            <p><strong>In brief:</strong> for an autoregressive generative model trained to step both forward and backward in time, such as a neural PDE surrogate or a video prediction model, round-trip consistency is a test-time uncertainty estimate that needs no ensemble and no ground truth. Roll the model forward, roll it back, and the distance from where it started predicts the rollout error.</p>
+            <h2>Abstract</h2>
             <p> Autoregressive models accumulate error over long rollouts, yet at deployment there is no ground truth to measure it against. We train a single conditional latent diffusion model that steps a dynamical system forward or backward in time via a direction
 flag, and show that this bidirectionality supplies a measurement-free test-time error signal: rolling forward $i$ steps and then backward $i$ steps must return the model to its start, so the round-trip discrepancy $\mathcal{C}_i$ is a self-supervised proxy for the unobservable rollout error: no ensembles, no held-out data, no governing equations, for one extra rollout. We validate on compressible magnetohydrodynamics (MHD), an astrophysical turbulent radiative mixing layer, and natural face videos (CelebV-HQ). On held-out MHD trajectories, $\mathcal{C}_i$ ranks rollout error (Spearman $0.91$-$0.98$ at fixed depth; $0.69 \pm 0.16$ within trajectories), and a simple calibrator fit on training
 rollouts predicts its magnitude to within $1.14\times$ ($68\%$) and $1.29\times$ ($95\%$) with near-nominal coverage - one nat beyond a depth-only predictor, transferring to all six decoded physical fields. The same signal flags the out-of-distribution Orszag-Tang vortex (AUROC $0.98$; $1.0$ by depth $10$) exactly where sampling-dispersion baselines invert, and it cuts incurred error by $15\%$ at $80\%$ coverage - three times the depth-only baseline. Bidirectional training comes at negative cost, beating direction specialists in both directions, and the backward direction doubles as a fast inverse solver. On LE-PDE-UQ's turbulent Navier-Stokes benchmark, a single bidirectional model reaches accuracy within $1.3\times$ of their ten-model ensemble at a tenth of the training cost, with the best training-free pixel-level calibration. Round-trip consistency turns reversibility into a practical trust signal for generative models. </p>
 
-            <img src="Consistency_Loss_V12.png" alt="Figure 1">
-            <p class="caption">This image gives a high level overview of the overall setup. High dimensional images are first encoded into much lower dimensional representations by a VAE. A bidirectional latent diffusion model is then trained to autoregressively rollout forward of backward in time based on a directional flag $c_d=\pm1$. After rolling out $i$ steps, if $c_d$ is reversed, the prediction should return to where it started. The consistency error, the difference between the start and return, is a self-supervised test-time metric for model prediction error without relying on access to the unknown ground truth.</p>
+            <img src="Consistency_Loss_V12.png" alt="Overview: a VAE encodes each frame into a latent; one bidirectional latent diffusion model steps forward or backward in time via a direction flag; rolling out i steps and back gives the round-trip consistency error.">
+            <p class="caption">This image gives a high level overview of the overall setup. High dimensional images are first encoded into much lower dimensional representations by a VAE. A bidirectional latent diffusion model is then trained to autoregressively roll out forward or backward in time based on a directional flag $c_d=\pm1$. After rolling out $i$ steps, if $c_d$ is reversed, the prediction should return to where it started. The consistency error, the difference between the start and return, is a self-supervised test-time metric for model prediction error without relying on access to the unknown ground truth.</p>
 
-            <img src="Fit_Mean_Sigma_Spearman_C_z_X_val_V2.png" alt="Figure 2">
+            <img src="Fit_Mean_Sigma_Spearman_C_z_X_val_V2.png" loading="lazy" decoding="async" alt="Seven panels plotting true rollout error against round-trip consistency error for the latent and the six decoded MHD fields, with fitted mean and two-sigma bands and held-out test points.">
             <p class="caption">This figure shows that we can use our roundtrip consistency signal $\mathcal{C}_i$ to accurately predict the error of the autoregressively rolled out latent images as well as the 6 physical MHD fields that are generated by decoding the latent images. The figure shows mean and $\pm2 \sigma$ envelopes that were fit on training data and the black dots are for unseen test data.</p>
 
             <div class="img-row">
-                <img src="Val_Rollout_more_2.jpg" alt="Figure 2">
-                <img src="Val_Rollout_more_5.jpg" alt="Figure 3">
+                <img src="Val_Rollout_more_2.jpg" loading="lazy" decoding="async" alt="CelebV-HQ face-video rollout that stays plausible: generated frames at steps 2 to 27 above the true frames, with round-trip consistency error staying below 0.09.">
+                <img src="Val_Rollout_more_5.jpg" loading="lazy" decoding="async" alt="CelebV-HQ face-video rollout that drifts away from the true frames by steps 13 and 23, with round-trip consistency error rising to 0.15.">
             </div>
-            <p class="caption">For CELEBV-HQ data, videos of human faces, there is no fixed underlying PDE-based model, the problem of rolling out is that of video generation and by providing only the first 2 frames we are creating an incredibly difficult and ill-defined problem. In this case the approach is still able to detect, via $\mathcal{C}_i$ how bad or out of distribution its rollouts are and when plausible images are created, which can be rolled by, $\mathcal{C}_i$ remains low.</p>
+            <p class="caption">For CelebV-HQ data, videos of human faces, there is no fixed underlying PDE-based model, the problem of rolling out is that of video generation and by providing only the first 2 frames we are creating an incredibly difficult and ill-defined problem. In this case the approach is still able to detect, via $\mathcal{C}_i$ how bad or out of distribution its rollouts are and when plausible images are created, which can be rolled back, $\mathcal{C}_i$ remains low.</p>
 
-            <img src="FWD_BCK_Sim7.png" alt="Figure 4">
-            <p class="caption">"Demonstration of the model autoregressively rolling out forward or backward in time, where it acts as an inverse solver, for turbulent Navier-Stockes fluid dynamics data.</p>
+            <img src="FWD_BCK_Sim7.png" loading="lazy" decoding="async" alt="Forward and backward autoregressive rollouts of a turbulent density field over 99 steps, with the true field and absolute error maps.">
+            <p class="caption">Demonstration of the model autoregressively rolling out forward or backward in time, where it acts as an inverse solver, for turbulent Navier-Stokes fluid dynamics data.</p>
 
-            <img src="ForwardBackRollRecon.png" alt="Figure 5">
-            <p class="caption">"Demonstration of the model autoregressively rolling out forward or backward in time, where it acts as an inverse solver, for MHD data.</p>
+            <img src="ForwardBackRollRecon.png" loading="lazy" decoding="async" alt="Backward and forward rollouts of six MHD fields (density, velocity, pressure, magnetic field), each shown as truth, prediction and absolute error.">
+            <p class="caption">Demonstration of the model autoregressively rolling out forward or backward in time, where it acts as an inverse solver, for MHD data.</p>
 
-            <img src="Spearman_ForwardBack_z_C_val_iDepth.png" alt="Figure 6">
+            <img src="Spearman_ForwardBack_z_C_val_iDepth.png" loading="lazy" decoding="async" alt="Log-log scatter plots of latent rollout error against round-trip consistency error, for forward-then-back and back-then-forward cycles, colored by rollout depth.">
             <p class="caption">This figure plots the MSE of autoregressively rolled out latent images for MHD data against consistency error $\mathcal{C}_i$, colored by rollout depth $i$. On the left are forward then back rollout results and on the right are inverse problem solving results in which we start at the end, $z[T]$ and roll backwards towards $z[0]$, reversing at various depths $i$. In both cases there is a strong correlation between $\mathcal{C}_i$ and MSE of predicted $z_i$.</p>
             
-            <h2>Reference</h2>
+            <h2 id="reference">Reference</h2>
             <div class="citation-card">
                 <div class="citation-title">
                     <a href="https://arxiv.org/abs/2608.00675" target="_blank" rel="noopener">Round-Trip Consistency: Bidirectional Diffusion Models Can Predict Their Own Rollout Errors</a>
@@ -281,7 +369,7 @@ rollouts predicts its magnitude to within $1.14\times$ ($68\%$) and $1.29\times$
                 <div class="citation-meta">Alexander Scheinker &middot; 2026 &middot; arXiv:2608.00675 [stat.ML]</div>
                 <div class="paper-links">
                     <a href="https://arxiv.org/abs/2608.00675" class="btn-arxiv" target="_blank" rel="noopener">arXiv</a>
-                    <a href=https://github.com/alexscheinker/round-trip-consistency class="btn-code" title="Link coming soon">Code</a>
+                    <a href="https://github.com/alexscheinker/round-trip-consistency" class="btn-code" target="_blank" rel="noopener">Code</a>
                 </div>
                 <div class="bibtex-header">
                     <span class="bibtex-label">BibTeX</span>
