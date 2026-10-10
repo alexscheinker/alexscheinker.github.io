@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research - Alex Scheinker</title>
+    <title>Adaptive Diffusion Models for Time-Varying Systems | Alexander Scheinker</title>
+    <meta name="description" content="Research highlights: feedback-guided latent diffusion, adaptive latent space tuning, test-time error estimates and physics-constrained neural networks.">
+    <meta name="author" content="Alexander Scheinker">
+    <link rel="canonical" href="https://alexscheinker.github.io/research.html">
+
+    <!-- Link previews (Slack, LinkedIn, X, Bluesky, Messages) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Alexander Scheinker">
+    <meta property="og:title" content="Adaptive Diffusion Models for Time-Varying Systems | Alexander Scheinker">
+    <meta property="og:description" content="Research highlights: feedback-guided latent diffusion, adaptive latent space tuning, test-time error estimates and physics-constrained neural networks.">
+    <meta property="og:url" content="https://alexscheinker.github.io/research.html">
+    <meta property="og:image" content="https://alexscheinker.github.io/roundtrip_card.jpg">
+    <meta property="og:image:alt" content="Diagram of a bidirectional latent diffusion model and its round-trip consistency error.">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- MathJax Configuration -->
     <script>
         MathJax = {
@@ -131,7 +144,7 @@
         <div class="content">
             <h1>Some Recent Research Highlights</h1>
             
-            <p>This is a summary of some recent research on the intersection of control theory and generative AI.</p>
+            <p>Recent work at the intersection of control theory and generative AI. A recurring theme is closed-loop adaptation at test time: model-free feedback tunes the latent variables or conditioning of a trained generative model so that it tracks a time-varying system under distribution shift, without retraining.</p>
 
             <h2>Bidirectional diffusion models can predict their own rollout errors</h2>
             
